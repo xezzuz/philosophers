@@ -6,7 +6,7 @@
 #    By: nazouz <nazouz@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/02 10:43:33 by nazouz            #+#    #+#              #
-#    Updated: 2024/03/02 21:31:32 by nazouz           ###   ########.fr        #
+#    Updated: 2024/03/03 12:03:01 by nazouz           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME			=	philo
 
 CC				=	cc
 
-CFLAGS			=	-Wall -Wextra -Werror -pthread
+CFLAGS			=	-Wall -Wextra -Werror -pthread -g
 
 INCLUDES		=	./philosophers.h
 
@@ -26,8 +26,9 @@ SRCS				=	\
 					./data_init.c \
 					./utils/ft_atoll.c \
 					./utils/ft_putstr_fd.c \
-					./routine.c \
-					./monitor.c
+					./philosophers.c \
+					./philosophers_actions.c \
+					./utils.c
 
 OBJS			=	$(SRCS:.c=.o)
 
@@ -44,5 +45,7 @@ clean :
 
 fclean : clean
 	$(RM) $(NAME) $(NAME_BONUS)
+
+a : all clean
 
 re : fclean all
