@@ -6,7 +6,7 @@
 /*   By: nazouz <nazouz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 10:39:29 by nazouz            #+#    #+#             */
-/*   Updated: 2024/03/03 11:59:30 by nazouz           ###   ########.fr       */
+/*   Updated: 2024/03/03 18:04:31 by nazouz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,15 +55,21 @@ void	sleeeep(t_philo *philo)
 
 void	eat(t_philo *philo)
 {
+	// pthread_mutex_lock(&philo->lock);
 	forks(philo, PICK_UP);
 	// update death date
 	pthread_mutex_lock(&philo->lock);
 	philo->death_date = get_time() + philo->data->t_die;
+	pthread_mutex_unlock(&philo->lock);
 	print_state(philo, EATING);
 	// ft_usleep
 	ft_usleep(philo->data->t_eat);
 	// increment meals
+	pthread_mutex_lock(&philo->lock);
 	philo->meals++;
 	pthread_mutex_unlock(&philo->lock);
+	if (philo->meals == philo->data->max_meals)
+		philo->stuffed = 1;
 	forks(philo, PUT_DOWN);
+	// pthread_mutex_unlock(&philo->lock);
 }

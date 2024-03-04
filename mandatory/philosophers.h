@@ -6,7 +6,7 @@
 /*   By: nazouz <nazouz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 10:29:11 by nazouz            #+#    #+#             */
-/*   Updated: 2024/03/03 11:59:22 by nazouz           ###   ########.fr       */
+/*   Updated: 2024/03/04 09:13:44 by nazouz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,6 @@ typedef struct s_data
 	pthread_mutex_t		write;
 	t_philo				*philos;
 	t_fork				*forks;
-	// pthread_mutex_t	finish_mutex;
-	// pthread_mutex_t	start_mutex;
-	// pthread_mutex_t	meals_mutex;
 }						t_data;
 
 int			parse(t_data *data, char **argv);
@@ -83,5 +80,7 @@ size_t		get_time(void);
 int			ft_usleep(size_t milliseconds);
 void		ft_putstr_fd(char *s, int fd);
 long long	ft_atoll(const char *str);
+
+int	a_philo_died(t_philo *philo);
 
 #endif
