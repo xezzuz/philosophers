@@ -6,7 +6,7 @@
 /*   By: nazouz <nazouz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 10:29:11 by nazouz            #+#    #+#             */
-/*   Updated: 2024/03/04 17:12:20 by nazouz           ###   ########.fr       */
+/*   Updated: 2024/03/04 18:05:09 by nazouz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 
 # define ENOMEM 12
 # define ENOMTX 21
+# define ENOTHD 42
 # define EATING 1
 # define SLEEPING 2
 # define THINKING 3
@@ -67,7 +68,7 @@ typedef struct s_data
 
 int			parse(t_data *data, char **argv);
 int			t_data_init(t_data *data);
-void		philosophers(t_data *data);
+int			philosophers(t_data *data);
 void		eat(t_philo *philo);
 void		sleeeep(t_philo *philo);
 void		print_state(t_data *data, int philo_id, int state);

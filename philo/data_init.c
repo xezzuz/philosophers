@@ -6,7 +6,7 @@
 /*   By: nazouz <nazouz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 09:00:17 by nazouz            #+#    #+#             */
-/*   Updated: 2024/03/04 17:32:45 by nazouz           ###   ########.fr       */
+/*   Updated: 2024/03/04 18:12:13 by nazouz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	destroy_mutexes(t_data *data, int stop)
 	i = 0;
 	while (i < stop)
 		pthread_mutex_destroy(&data->forks[i++].fork);
+	ft_putstr_fd("pthread_mutex_init() failed\n", STDERR_FILENO);
 }
 
 int	t_philo_init(t_data *data)
@@ -46,10 +47,11 @@ int	t_data_init(t_data *data)
 {
 	data->philos = malloc(sizeof(t_philo) * data->philos_nbr);
 	if (!data->philos)
-		return (ENOMEM);
+		return (ft_putstr_fd("malloc() failed\n", STDERR_FILENO), ENOMEM);
 	data->forks = malloc(sizeof(t_fork) * data->philos_nbr);
 	if (!data->forks)
-		return (free(data->philos), ENOMEM);
+		return (ft_putstr_fd("malloc() failed\n", STDERR_FILENO),
+			free(data->philos), ENOMEM);
 	if (t_philo_init(data))
 		return (free(data->philos), free(data->forks), ENOMTX);
 	if (pthread_mutex_init(&data->lock, NULL))

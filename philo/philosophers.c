@@ -6,7 +6,7 @@
 /*   By: nazouz <nazouz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 09:51:08 by nazouz            #+#    #+#             */
-/*   Updated: 2024/03/04 16:37:58 by nazouz           ###   ########.fr       */
+/*   Updated: 2024/03/04 18:10:28 by nazouz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,32 +94,23 @@ void	*routine(void *arg)
 	return (NULL);
 }
 
-void	philosophers(t_data *data)
+int	philosophers(t_data *data)
 {
 	int			i;
 
-	// set start time
 	data->start_time = get_time();
-	// set death dates
 	i = 0;
 	while (i < data->philos_nbr)
 		data->philos[i++].death_date = data->start_time + data->t_die;
-	// launch monitor thread
-	pthread_create(&data->monitor, NULL, monitor, data);
-	// launch philosophers threads
+	if (pthread_create(&data->monitor, NULL, monitor, data))
+		return (ENOTHD);
+	i = -1;
+	while (++i < data->philos_nbr)
+		if (pthread_create(&data->philos[i].thread, NULL, routine, &data->philos[i]))
+			return (ENOTHD);
 	i = 0;
 	while (i < data->philos_nbr)
-	{
-		pthread_create(&data->philos[i].thread, NULL, routine, &data->philos[i]);
-		i++;
-	}
-	// join all philosophers
-	i = 0;
-	while (i < data->philos_nbr)
-	{
-		pthread_join(data->philos[i].thread, NULL);
-		i++;
-	}
-	// join monitor
+		pthread_join(data->philos[i++].thread, NULL);
 	pthread_join(data->monitor, NULL);
+	return (0);
 }
