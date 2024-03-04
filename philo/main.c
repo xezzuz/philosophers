@@ -6,7 +6,7 @@
 /*   By: nazouz <nazouz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 10:42:16 by nazouz            #+#    #+#             */
-/*   Updated: 2024/03/03 09:50:06 by nazouz           ###   ########.fr       */
+/*   Updated: 2024/03/04 17:32:05 by nazouz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int main(int argc, char **argv)
 	if (!parse(&data, argv))
 		return (ft_putstr_fd("Invalid input!\n", 2), 1);
 	if (t_data_init(&data))
-		; // protection
+		return (1);
 	philosophers(&data);
+	// ft_clean();
 }

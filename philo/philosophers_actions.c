@@ -6,7 +6,7 @@
 /*   By: nazouz <nazouz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 10:39:29 by nazouz            #+#    #+#             */
-/*   Updated: 2024/03/04 10:45:21 by nazouz           ###   ########.fr       */
+/*   Updated: 2024/03/04 16:35:09 by nazouz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ void	sleeeep(t_philo *philo)
 
 void	eat(t_philo *philo)
 {
+	if (!philo->data->max_meals)
+		return ;
 	forks(philo, PICK_UP);
 	// update death date
 	pthread_mutex_lock(&philo->data->lock);

@@ -6,7 +6,7 @@
 /*   By: nazouz <nazouz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 10:49:21 by nazouz            #+#    #+#             */
-/*   Updated: 2024/03/04 13:00:17 by nazouz           ###   ########.fr       */
+/*   Updated: 2024/03/04 17:08:41 by nazouz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int	only_nums(char **argv)
 		j = 0;
 		while (argv[i][j] == 32 || (argv[i][j] >=9 && argv[i][j] <= 13))
 			j++;
+		if (argv[i][j++] == '-' && argv[i][j++] != '0')
+			return (0);
 		while (argv[i][j])
 		{
 			if (argv[i][j] < '0' || argv[i][j] > '9')
@@ -38,7 +40,7 @@ int	parse(t_data *data, char **argv)
 {
 	if (!only_nums(argv))
 		return (0);
-	data->philos_nbr = ft_atoll(argv[1]);
+	data->philos_nbr = ft_atoll(argv[1]); // maybe atoi
 	data->t_die = ft_atoll(argv[2]);
 	data->t_eat = ft_atoll(argv[3]);
 	data->t_sleep = ft_atoll(argv[4]);

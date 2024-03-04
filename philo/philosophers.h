@@ -6,7 +6,7 @@
 /*   By: nazouz <nazouz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 10:29:11 by nazouz            #+#    #+#             */
-/*   Updated: 2024/03/04 13:00:05 by nazouz           ###   ########.fr       */
+/*   Updated: 2024/03/04 17:12:20 by nazouz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # include <pthread.h>
 # include <sys/time.h>
 
+# define ENOMEM 12
+# define ENOMTX 21
 # define EATING 1
 # define SLEEPING 2
 # define THINKING 3

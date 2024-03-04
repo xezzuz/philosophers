@@ -6,7 +6,7 @@
 /*   By: nazouz <nazouz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 09:51:08 by nazouz            #+#    #+#             */
-/*   Updated: 2024/03/04 13:05:08 by nazouz           ###   ########.fr       */
+/*   Updated: 2024/03/04 16:37:58 by nazouz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,9 @@ void	*routine(void *arg)
 		if (a_philo_died(philo->data))
 			break ;
 		eat(philo);
-		if (philo->meals == philo->data->max_meals) // ACCESS PHILO MEALS BUT IT IS LOCAL
+		if (philo->meals == philo->data->max_meals)
 		{
 			pthread_mutex_lock(&philo->data->lock);
-			printf("PHILO [%d] - EATEN MEALS [%zu]\n", philo->id, philo->meals);
 			philo->data->stuffed_philos++;
 			pthread_mutex_unlock(&philo->data->lock);
 			break ;
@@ -119,14 +118,8 @@ void	philosophers(t_data *data)
 	while (i < data->philos_nbr)
 	{
 		pthread_join(data->philos[i].thread, NULL);
-		pthread_mutex_lock(&data->write);
-		printf("PHILO [%d] - JOINED\n", i + 1);
-		pthread_mutex_unlock(&data->write);
 		i++;
 	}
 	// join monitor
-	pthread_mutex_lock(&data->write);
 	pthread_join(data->monitor, NULL);
-	printf("MONITOR - JOINED\n");
-	pthread_mutex_unlock(&data->write);
 }
