@@ -6,11 +6,27 @@
 /*   By: nazouz <nazouz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 09:51:08 by nazouz            #+#    #+#             */
-/*   Updated: 2024/03/04 18:10:28 by nazouz           ###   ########.fr       */
+/*   Updated: 2024/03/04 18:30:41 by nazouz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+int	break_condition(t_data *data, int index, size_t time)
+{
+	pthread_mutex_lock(&data->lock);
+	if (time >= data->philos[index].death_date)
+	{
+		data->dead = 1;
+		pthread_mutex_unlock(&data->lock);
+		print_state(data, index + 1, DIED);
+		return (1);
+	}
+	if (data->stuffed_philos == data->philos_nbr)
+		return (pthread_mutex_unlock(&data->lock), 1);
+	pthread_mutex_unlock(&data->lock);
+	return (0);
+}
 
 int	a_philo_died(t_data *data)
 {
@@ -24,11 +40,6 @@ int	a_philo_died(t_data *data)
 	return (0);
 }
 
-/*
-*	monitor of all philosophers
-*	checks death date and reports it
-*/
-
 void	*monitor(void *arg)
 {
 	int			i;
@@ -37,36 +48,17 @@ void	*monitor(void *arg)
 
 	data = (t_data *)arg;
 	i = 0;
-	// loop on all philos and check their death date
 	while (i < data->philos_nbr)
 	{
 		time = get_time();
-		pthread_mutex_lock(&data->lock);
-		if (time >= data->philos[i].death_date) // ACCESS DEATH DATE
-		{
-			data->dead = 1;						// ASSIGNING DEAD FLAG
-			pthread_mutex_unlock(&data->lock);
-			print_state(data, i + 1, DIED);
+		if (break_condition(data, i, time))
 			break ;
-		}
-		if (data->stuffed_philos == data->philos_nbr)
-		{
-			pthread_mutex_unlock(&data->lock);
-			break ;
-		}
-		pthread_mutex_unlock(&data->lock);
 		i++;
-		if (i == data->philos_nbr)
+		if (data->philos_nbr == i)
 			i = 0;
 	}
 	return (NULL);
 }
-
-/*
-*	single philosopher
-*	eat, sleep, think
-*	until he's stuffed or someone died
-*/
 
 void	*routine(void *arg)
 {
@@ -75,7 +67,6 @@ void	*routine(void *arg)
 	philo = (t_philo *)arg;
 	if (philo->id % 2 == 0)
 		ft_usleep(philo->data->t_eat);
-	// loop until philo is stuffed
 	while (1)
 	{
 		if (a_philo_died(philo->data))
@@ -106,7 +97,8 @@ int	philosophers(t_data *data)
 		return (ENOTHD);
 	i = -1;
 	while (++i < data->philos_nbr)
-		if (pthread_create(&data->philos[i].thread, NULL, routine, &data->philos[i]))
+		if (pthread_create(&data->philos[i].thread,
+				NULL, routine, &data->philos[i]))
 			return (ENOTHD);
 	i = 0;
 	while (i < data->philos_nbr)

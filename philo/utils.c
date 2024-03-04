@@ -6,7 +6,7 @@
 /*   By: nazouz <nazouz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 08:59:13 by nazouz            #+#    #+#             */
-/*   Updated: 2024/03/04 18:04:26 by nazouz           ###   ########.fr       */
+/*   Updated: 2024/03/04 18:31:53 by nazouz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ft_clean(t_data *data, int error)
 
 size_t	get_time(void)
 {
-	struct timeval time;
+	struct timeval	time;
 
 	if (gettimeofday(&time, NULL) == -1)
 		write(2, "gettimeofday() error\n", 22);

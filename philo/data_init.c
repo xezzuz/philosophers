@@ -6,7 +6,7 @@
 /*   By: nazouz <nazouz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 09:00:17 by nazouz            #+#    #+#             */
-/*   Updated: 2024/03/04 18:12:13 by nazouz           ###   ########.fr       */
+/*   Updated: 2024/03/04 18:29:45 by nazouz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,6 @@ int	t_data_init(t_data *data)
 	if (pthread_mutex_init(&data->write, NULL))
 		return (free(data->philos),
 			free(data->forks), pthread_mutex_destroy(&data->lock),
-				destroy_mutexes(data, data->philos_nbr), ENOMTX);
+			destroy_mutexes(data, data->philos_nbr), ENOMTX);
 	return (0);
 }

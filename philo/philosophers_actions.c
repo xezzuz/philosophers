@@ -6,7 +6,7 @@
 /*   By: nazouz <nazouz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 10:39:29 by nazouz            #+#    #+#             */
-/*   Updated: 2024/03/04 16:35:09 by nazouz           ###   ########.fr       */
+/*   Updated: 2024/03/04 18:31:42 by nazouz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	print_state(t_data *data, int philo_id, int state)
 			printf("%ld %d is thinking\n", elapsed, philo_id);
 		else if (state == DIED)
 			printf("%ld %d died\n", elapsed, philo_id);
-		pthread_mutex_unlock(&data->write);	
+		pthread_mutex_unlock(&data->write);
 	}
 }
 
@@ -46,7 +46,7 @@ void	forks(t_philo *philo, int to_do)
 	else if (to_do == PUT_DOWN)
 	{
 		pthread_mutex_unlock(&philo->left_fork->fork);
-		pthread_mutex_unlock(&philo->right_fork->fork);	
+		pthread_mutex_unlock(&philo->right_fork->fork);
 	}
 }
 
@@ -68,15 +68,11 @@ void	eat(t_philo *philo)
 	if (!philo->data->max_meals)
 		return ;
 	forks(philo, PICK_UP);
-	// update death date
 	pthread_mutex_lock(&philo->data->lock);
-	philo->death_date = get_time() + philo->data->t_die; // ACCESS DEATH DATE
-	// printf("PHILO [%d] - LAST EAT [%zu] - DEATH_DATE [%zu]\n", philo->id, get_time(), philo->death_date);
+	philo->death_date = get_time() + philo->data->t_die;
 	pthread_mutex_unlock(&philo->data->lock);
 	print_state(philo->data, philo->id, EATING);
-	// ft_usleep
 	ft_usleep(philo->data->t_eat);
-	// increment meals
 	philo->meals++;
 	forks(philo, PUT_DOWN);
 }

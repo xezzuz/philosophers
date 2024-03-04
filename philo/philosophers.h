@@ -6,12 +6,12 @@
 /*   By: nazouz <nazouz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 10:29:11 by nazouz            #+#    #+#             */
-/*   Updated: 2024/03/04 18:05:09 by nazouz           ###   ########.fr       */
+/*   Updated: 2024/03/04 18:31:11 by nazouz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILOSOPHERS_H
-#define PHILOSOPHERS_H
+# define PHILOSOPHERS_H
 
 # include <stdlib.h>
 # include <stdio.h>
@@ -30,7 +30,7 @@
 # define PICK_UP 5
 # define PUT_DOWN 6
 
-typedef struct s_data t_data;
+typedef struct s_data	t_data;
 
 typedef struct s_fork
 {
@@ -77,5 +77,6 @@ int			ft_usleep(size_t milliseconds);
 void		ft_putstr_fd(char *s, int fd);
 long long	ft_atoll(const char *str);
 int			a_philo_died(t_data *data);
+void		ft_clean(t_data *data, int error);
 
 #endif

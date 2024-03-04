@@ -6,15 +6,13 @@
 /*   By: nazouz <nazouz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 10:42:16 by nazouz            #+#    #+#             */
-/*   Updated: 2024/03/04 18:15:13 by nazouz           ###   ########.fr       */
+/*   Updated: 2024/03/04 18:29:55 by nazouz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-
-
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_data		data;
 
