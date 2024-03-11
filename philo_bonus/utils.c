@@ -6,29 +6,29 @@
 /*   By: nazouz <nazouz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 08:59:13 by nazouz            #+#    #+#             */
-/*   Updated: 2024/03/05 20:20:59 by nazouz           ###   ########.fr       */
+/*   Updated: 2024/03/11 20:31:49 by nazouz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-// void	ft_clean(t_data *data, int error)
-// {
-// 	int			i;
+void	ft_clean(t_data *data)
+{
+	int			i;
 
-// 	i = 0;
-// 	if (error == ENOTHD)
-// 		ft_putstr_fd("pthread_create() failed\n", STDERR_FILENO);
-// 	pthread_join(data->monitor, NULL);
-// 	while (i < data->philos_nbr)
-// 		pthread_join(data->philos[i++].thread, NULL);
-// 	while (i < data->philos_nbr)
-// 		pthread_mutex_destroy(&data->forks[i++].fork);
-// 	pthread_mutex_destroy(&data->lock);
-// 	pthread_mutex_destroy(&data->write);
-// 	free(data->philos);
-// 	free(data->forks);
-// }
+	i = 0;
+	while (i < data->philos_nbr)
+	{
+		sem_close(data->philos[i].lock);
+		sem_unlink(data->philos[i].lock_str);
+		free(data->philos[i].lock_str);
+	}
+	sem_close(data->forks);
+	sem_unlink("/forks");
+	sem_close(data->write);
+	sem_unlink("/write");
+	free(data->philos);
+}
 
 size_t	get_time(void)
 {

@@ -6,7 +6,7 @@
 /*   By: nazouz <nazouz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 09:51:08 by nazouz            #+#    #+#             */
-/*   Updated: 2024/03/11 15:19:11 by nazouz           ###   ########.fr       */
+/*   Updated: 2024/03/11 19:27:44 by nazouz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	*monitor(void *arg)
 {
 	int			i;
 	t_data		*data;
-	size_t		time;
 
 	data = (t_data *)arg;
 	i = 0;
@@ -53,16 +52,15 @@ void	*monitor(void *arg)
 		pthread_mutex_lock(&data->lock);
 		if (data->philos[i].meals == data->max_meals)
 		{
-			i++;
 			pthread_mutex_unlock(&data->lock);
+			if (data->philos_nbr == ++i)
+				i = 0;
 			continue ;
 		}
 		pthread_mutex_unlock(&data->lock);
-		time = get_time();
-		if (break_condition(data, i, time))
+		if (break_condition(data, i, get_time()))
 			break ;
-		i++;
-		if (data->philos_nbr == i)
+		if (data->philos_nbr == ++i)
 			i = 0;
 	}
 	return (NULL);
@@ -80,13 +78,14 @@ void	*routine(void *arg)
 		if (a_philo_died(philo->data))
 			break ;
 		eat(philo);
+		pthread_mutex_lock(&philo->data->lock);
 		if (philo->meals == philo->data->max_meals)
 		{
-			pthread_mutex_lock(&philo->data->lock);
 			philo->data->stuffed_philos++;
 			pthread_mutex_unlock(&philo->data->lock);
 			break ;
 		}
+		pthread_mutex_unlock(&philo->data->lock);
 		sleeeep(philo);
 		print_state(philo->data, philo->id, THINKING);
 	}

@@ -6,7 +6,7 @@
 /*   By: nazouz <nazouz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 10:29:11 by nazouz            #+#    #+#             */
-/*   Updated: 2024/03/06 11:21:58 by nazouz           ###   ########.fr       */
+/*   Updated: 2024/03/11 20:29:55 by nazouz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@
 # include <signal.h>
 
 # define ENOMEM 12
-# define I_DIED 41
-# define IM_FULL 42
 # define EATING 1
 # define SLEEPING 2
 # define THINKING 3
@@ -39,7 +37,6 @@ typedef struct s_philo
 {
 	int			id;
 	pid_t		process_id;
-	pthread_t	thread;
 	long		meals;
 	size_t		death_date;
 	char		*lock_str;
@@ -77,6 +74,6 @@ char		*ft_strjoin(char const *s1, char const *s2);
 char		*ft_strdup(const char *s1);
 char		*ft_itoa(int n);
 int			a_philo_died(t_data *data);
-void		ft_clean(t_data *data, int error);
+void		ft_clean(t_data *data);
 
 #endif

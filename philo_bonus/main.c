@@ -6,7 +6,7 @@
 /*   By: nazouz <nazouz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 10:42:16 by nazouz            #+#    #+#             */
-/*   Updated: 2024/03/05 20:41:22 by nazouz           ###   ########.fr       */
+/*   Updated: 2024/03/11 20:32:26 by nazouz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ int	main(int argc, char **argv)
 	if (t_data_init(&data))
 		return (1);
 	philosophers(&data);
-	// if (philosophers(&data))
-	// 	return (1); // ft_clean(&data, ENOTHD)
+	ft_clean(&data);
 	return (0);
-	// return (ft_clean(&data, 0), 0);
 }

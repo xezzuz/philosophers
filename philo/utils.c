@@ -6,7 +6,7 @@
 /*   By: nazouz <nazouz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 08:59:13 by nazouz            #+#    #+#             */
-/*   Updated: 2024/03/04 18:31:53 by nazouz           ###   ########.fr       */
+/*   Updated: 2024/03/11 20:26:53 by nazouz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,13 @@ void	ft_clean(t_data *data, int error)
 {
 	int			i;
 
-	i = 0;
 	if (error == ENOTHD)
 		ft_putstr_fd("pthread_create() failed\n", STDERR_FILENO);
 	pthread_join(data->monitor, NULL);
+	i = 0;
 	while (i < data->philos_nbr)
 		pthread_join(data->philos[i++].thread, NULL);
+	i = 0;
 	while (i < data->philos_nbr)
 		pthread_mutex_destroy(&data->forks[i++].fork);
 	pthread_mutex_destroy(&data->lock);
@@ -45,6 +46,6 @@ int	ft_usleep(size_t milliseconds)
 
 	start = get_time();
 	while ((get_time() - start) < milliseconds)
-		usleep(500);
+		usleep(100);
 	return (0);
 }

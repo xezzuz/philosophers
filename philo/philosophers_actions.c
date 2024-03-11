@@ -6,7 +6,7 @@
 /*   By: nazouz <nazouz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 10:39:29 by nazouz            #+#    #+#             */
-/*   Updated: 2024/03/11 15:15:33 by nazouz           ###   ########.fr       */
+/*   Updated: 2024/03/11 19:26:15 by nazouz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,19 @@ void	forks(t_philo *philo, int to_do)
 {
 	if (to_do == PICK_UP)
 	{
-		pthread_mutex_lock(&philo->left_fork->fork);
-		print_state(philo->data, philo->id, PICK_UP);
-		pthread_mutex_lock(&philo->right_fork->fork);
-		print_state(philo->data, philo->id, PICK_UP);
+		if (philo->data->philos_nbr == 1)
+		{
+			pthread_mutex_lock(&philo->left_fork->fork);
+			print_state(philo->data, philo->id, PICK_UP);
+			ft_usleep(philo->data->t_die);
+		}
+		else
+		{
+			pthread_mutex_lock(&philo->left_fork->fork);
+			print_state(philo->data, philo->id, PICK_UP);
+			pthread_mutex_lock(&philo->right_fork->fork);
+			print_state(philo->data, philo->id, PICK_UP);
+		}
 	}
 	else if (to_do == PUT_DOWN)
 	{

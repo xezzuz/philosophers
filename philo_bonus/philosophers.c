@@ -6,11 +6,50 @@
 /*   By: nazouz <nazouz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 09:51:08 by nazouz            #+#    #+#             */
-/*   Updated: 2024/03/11 15:59:47 by nazouz           ###   ########.fr       */
+/*   Updated: 2024/03/11 20:24:42 by nazouz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+void	wait_for_all(t_data *data)
+{
+	int		i;
+	int		exit_code;
+
+	while (1)
+	{
+		waitpid(-1, &exit_code, 0);
+		if (WEXITSTATUS(exit_code))
+		{
+			i = 0;
+			while (i < data->philos_nbr)
+				kill(data->philos[i++].process_id, SIGTERM);
+			return ;
+		}
+	}
+}
+
+int	spawn_children(t_data *data)
+{
+	int		i;
+	int		pid;
+
+	i = 0;
+	while (i < data->philos_nbr)
+	{
+		data->philos[i].death_date = data->start_time + data->t_die;
+		pid = fork();
+		if (pid < 0)
+			return (perror("fork"), -1);
+		if (pid > 0)
+			data->philos[i].process_id = pid;
+		else if (!pid)
+			break ;
+		i++;
+	}
+	return (pid);
+}
 
 void	*monitor(void *arg)
 {
@@ -36,7 +75,7 @@ void	*monitor(void *arg)
 		{
 			print_state(philo, philo->id, DIED);
 			sem_post(philo->lock);
-			exit(I_DIED);
+			exit(1);
 		}
 		sem_post(philo->lock);
 	}
@@ -52,7 +91,7 @@ void	routine(t_philo *philo)
 	{
 		eat(philo);
 		if (philo->meals == philo->data->max_meals)
-			exit(IM_FULL);
+			exit(0);
 		sleeeep(philo);
 		print_state(philo, philo->id, THINKING);
 	}
@@ -66,48 +105,13 @@ int	philosophers(t_data *data)
 	int			exit_code;
 
 	data->start_time = get_time();
-	i = 0;
-	while (i < data->philos_nbr)
-	{
-		data->philos[i].death_date = data->start_time + data->t_die;
-		pid = fork();
-		if (pid < 0)
-			perror("fork");
-		if (pid > 0) // parent
-			data->philos[i].process_id = pid;
-		else if (!pid) // philo [i]
-			break ;
-		i++;
-	}
+	pid = spawn_children(data);
+	if (pid == -1)
+		return (1);
 	if (!pid)
 		routine(&data->philos[i]);
 	// wait for children
 	else
-	{
-		pid = 0;
-		while (1)
-		{
-			pid = waitpid(-1, &exit_code, 0);
-			printf("========> Child exited [%d] [%d]\n", pid, WEXITSTATUS(exit_code));
-			if (WEXITSTATUS(exit_code) == I_DIED)
-			{
-				i = 0;
-				while (i < data->philos_nbr)
-				{
-					if (kill(data->philos[i++].process_id, SIGTERM) == -1)
-						perror("kill");
-				}
-				exit(0);
-			}
-			if (pid < 0)
-			{
-				perror("waitpid");
-				break ;
-			}
-		}
-		printf("DONE\n");
-		sem_close(data->forks);
-        sem_unlink("/forks");
-	}
+		wait_for_all(data);
 	return (0);
 }
