@@ -6,7 +6,7 @@
 /*   By: nazouz <nazouz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 10:49:21 by nazouz            #+#    #+#             */
-/*   Updated: 2024/03/11 16:11:36 by nazouz           ###   ########.fr       */
+/*   Updated: 2024/03/05 17:16:17 by nazouz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	parse(t_data *data, char **argv)
 {
 	if (!only_nums(argv))
 		return (0);
-	data->philos_nbr = ft_atoll(argv[1]);
+	data->philos_nbr = ft_atoll(argv[1]); //atoi?
 	data->t_die = ft_atoll(argv[2]);
 	data->t_eat = ft_atoll(argv[3]);
 	data->t_sleep = ft_atoll(argv[4]);
