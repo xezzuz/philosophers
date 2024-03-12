@@ -6,7 +6,7 @@
 /*   By: nazouz <nazouz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 09:51:08 by nazouz            #+#    #+#             */
-/*   Updated: 2024/03/11 19:27:44 by nazouz           ###   ########.fr       */
+/*   Updated: 2024/03/12 18:05:23 by nazouz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,6 @@ void	*monitor(void *arg)
 	i = 0;
 	while (i < data->philos_nbr)
 	{
-		pthread_mutex_lock(&data->lock);
-		if (data->philos[i].meals == data->max_meals)
-		{
-			pthread_mutex_unlock(&data->lock);
-			if (data->philos_nbr == ++i)
-				i = 0;
-			continue ;
-		}
-		pthread_mutex_unlock(&data->lock);
 		if (break_condition(data, i, get_time()))
 			break ;
 		if (data->philos_nbr == ++i)

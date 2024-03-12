@@ -6,7 +6,7 @@
 /*   By: nazouz <nazouz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 10:29:11 by nazouz            #+#    #+#             */
-/*   Updated: 2024/03/11 20:29:55 by nazouz           ###   ########.fr       */
+/*   Updated: 2024/03/11 20:52:17 by nazouz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_philo
 {
 	int			id;
 	pid_t		process_id;
+	pthread_t	thread;
 	long		meals;
 	size_t		death_date;
 	char		*lock_str;
