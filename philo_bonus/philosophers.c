@@ -6,7 +6,7 @@
 /*   By: nazouz <nazouz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 09:51:08 by nazouz            #+#    #+#             */
-/*   Updated: 2024/03/12 18:22:57 by nazouz           ###   ########.fr       */
+/*   Updated: 2024/03/15 02:49:11 by nazouz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,27 +28,6 @@ void	wait_for_all(t_data *data)
 				kill(data->philos[i++].process_id, SIGTERM);
 	}
 	return ;
-}
-
-int	spawn_children(t_data *data)
-{
-	int		i;
-	int		pid;
-
-	i = 0;
-	while (i < data->philos_nbr)
-	{
-		data->philos[i].death_date = data->start_time + data->t_die;
-		pid = fork();
-		if (pid < 0)
-			return (ft_putstr_fd("Philo: fork() failed\n", 2), -1);
-		if (pid > 0)
-			data->philos[i].process_id = pid;
-		else if (!pid)
-			break ;
-		i++;
-	}
-	return (pid);
 }
 
 void	*monitor(void *arg)
@@ -89,18 +68,36 @@ void	routine(t_philo *philo)
 	exit(0);
 }
 
+int	spawn_children(t_data *data)
+{
+	int		i;
+	int		pid;
+
+	i = 0;
+	while (i < data->philos_nbr)
+	{
+		data->philos[i].death_date = data->start_time + data->t_die;
+		pid = fork();
+		if (pid < 0)
+			return (ft_putstr_fd("Philo: fork() failed\n", 2), -1);
+		if (pid > 0)
+			data->philos[i].process_id = pid;
+		else if (!pid)
+			routine(&data->philos[i]);
+		i++;
+	}
+	return (pid);
+}
+
 int	philosophers(t_data *data)
 {
-	int			i;
 	int			pid;
 
 	data->start_time = get_time();
 	pid = spawn_children(data);
 	if (pid == -1)
 		return (1);
-	if (!pid)
-		routine(&data->philos[i]);
-	else
+	if (pid > 0)
 		wait_for_all(data);
 	return (0);
 }

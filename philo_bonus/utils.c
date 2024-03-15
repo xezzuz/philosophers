@@ -6,7 +6,7 @@
 /*   By: nazouz <nazouz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 08:59:13 by nazouz            #+#    #+#             */
-/*   Updated: 2024/03/11 20:31:49 by nazouz           ###   ########.fr       */
+/*   Updated: 2024/03/15 02:46:47 by nazouz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_clean(t_data *data)
 	{
 		sem_close(data->philos[i].lock);
 		sem_unlink(data->philos[i].lock_str);
-		free(data->philos[i].lock_str);
+		free(data->philos[i++].lock_str);
 	}
 	sem_close(data->forks);
 	sem_unlink("/forks");

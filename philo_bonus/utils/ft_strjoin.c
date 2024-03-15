@@ -6,7 +6,7 @@
 /*   By: nazouz <nazouz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 11:16:54 by nazouz            #+#    #+#             */
-/*   Updated: 2024/03/06 11:22:41 by nazouz           ###   ########.fr       */
+/*   Updated: 2024/03/15 01:03:57 by nazouz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	ft_memcpy(result, s1, s1_len);
 	ft_memcpy(result + s1_len, s2, s2_len);
 	*(result + total_len) = '\0';
+	free((char *)s2);
 	return (result);
 }

@@ -6,7 +6,7 @@
 /*   By: nazouz <nazouz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 09:00:17 by nazouz            #+#    #+#             */
-/*   Updated: 2024/03/11 20:51:54 by nazouz           ###   ########.fr       */
+/*   Updated: 2024/03/15 02:54:51 by nazouz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 int	create_semaphore(t_philo *philo)
 {
 	philo->lock_str = ft_strjoin("/lock_", ft_itoa(philo->id));
+	if (!philo->lock_str)
+		return (0);
 	sem_unlink(philo->lock_str);
 	philo->lock = sem_open(philo->lock_str, O_CREAT, 0644, 1);
 	if (philo->lock == SEM_FAILED)

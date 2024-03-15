@@ -6,7 +6,7 @@
 #    By: nazouz <nazouz@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/02 10:43:33 by nazouz            #+#    #+#              #
-#    Updated: 2024/03/12 17:56:05 by nazouz           ###   ########.fr        #
+#    Updated: 2024/03/15 02:55:54 by nazouz           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME			=	philo
 
 CC				=	cc
 
-CFLAGS			=	-Wall -Wextra -Werror -pthread #-g -fsanitize=thread
+CFLAGS			=	-Wall -Wextra -Werror -pthread
 
 INCLUDES		=	./philosophers.h
 
