@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philosophers_actions.c                             :+:      :+:    :+:   */
+/*   philosophers_actions_bonus.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nazouz <nazouz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 10:39:29 by nazouz            #+#    #+#             */
-/*   Updated: 2024/03/11 15:56:26 by nazouz           ###   ########.fr       */
+/*   Updated: 2024/03/15 21:26:22 by nazouz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "philosophers_bonus.h"
 
 void	print_state(t_philo *philo, int philo_id, int state)
 {
