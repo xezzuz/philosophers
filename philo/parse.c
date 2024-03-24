@@ -6,11 +6,21 @@
 /*   By: nazouz <nazouz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 10:49:21 by nazouz            #+#    #+#             */
-/*   Updated: 2024/03/11 16:11:36 by nazouz           ###   ########.fr       */
+/*   Updated: 2024/03/24 19:52:16 by nazouz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+int	is_all_spaces(char **argv, int i, int j)
+{
+	j++;
+	while (argv[i][j] == 32)
+		j++;
+	if (!argv[i][j])
+		return (1);
+	return (0);
+}
 
 int	only_nums(char **argv)
 {
@@ -23,11 +33,14 @@ int	only_nums(char **argv)
 		j = 0;
 		while (argv[i][j] == 32 || (argv[i][j] >= 9 && argv[i][j] <= 13))
 			j++;
-		if (argv[i][j++] == '-' && argv[i][j++] != '0')
+		if (argv[i][j] != '+' && !(argv[i][j] >= '0' && argv[i][j] <= '9'))
 			return (0);
+		j++;
 		while (argv[i][j])
 		{
-			if (argv[i][j] < '0' || argv[i][j] > '9')
+			if (is_all_spaces(argv, i, j))
+				return (1);
+			if (!(argv[i][j] >= '0' && argv[i][j] <= '9'))
 				return (0);
 			j++;
 		}

@@ -6,7 +6,7 @@
 #    By: nazouz <nazouz@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/02 10:43:33 by nazouz            #+#    #+#              #
-#    Updated: 2024/03/15 21:28:19 by nazouz           ###   ########.fr        #
+#    Updated: 2024/03/24 20:37:44 by nazouz           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME			=	philo_bonus
 
 CC				=	cc
 
-CFLAGS			=	-Wall -Wextra -Werror -pthread
+CFLAGS			=	-Wall -Wextra -Werror
 
 INCLUDES		=	./philosophers_bonus.h
 
@@ -26,7 +26,8 @@ SRCS				=	\
 					./data_init_bonus.c \
 					./utils/ft_atoll_bonus.c \
 					./utils/ft_putstr_fd_bonus.c \
-					./utils/ft_strjoin_bonus.c \
+					./utils/ft_strcmp_bonus.c \
+					./utils/ft_strdup_bonus.c \
 					./philosophers_bonus.c \
 					./philosophers_actions_bonus.c \
 					./utils_bonus.c
@@ -46,7 +47,5 @@ clean :
 
 fclean : clean
 	$(RM) $(NAME) $(NAME_BONUS)
-
-a : all clean
 
 re : fclean all

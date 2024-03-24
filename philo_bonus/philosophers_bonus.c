@@ -6,7 +6,7 @@
 /*   By: nazouz <nazouz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 09:51:08 by nazouz            #+#    #+#             */
-/*   Updated: 2024/03/15 21:26:24 by nazouz           ###   ########.fr       */
+/*   Updated: 2024/03/24 20:17:26 by nazouz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,36 +35,41 @@ void	*monitor(void *arg)
 	t_philo		*philo;
 
 	philo = (t_philo *)arg;
+	ft_usleep(philo->data->t_die * 0.5);
 	while (1)
 	{
+		sem_wait(philo->data->lock);
 		if (philo->meals == philo->data->max_meals)
-			exit(0);
-		sem_wait(philo->lock);
+			return (sem_post(philo->data->lock), NULL);
 		if (get_time() >= philo->death_date)
 		{
-			print_state(philo, philo->id, DIED);
-			sem_post(philo->lock);
+			print_state(philo->data->write, philo->id,
+				DIED, get_time() - philo->data->start_time);
+			sem_post(philo->data->lock);
 			exit(1);
 		}
-		sem_post(philo->lock);
+		sem_post(philo->data->lock);
 	}
-	exit(0);
 	return (NULL);
 }
 
 void	routine(t_philo *philo)
 {
-	pthread_create(&philo->thread, NULL, monitor, philo);
-	if (philo->id % 2 == 0)
-		ft_usleep(philo->data->t_eat);
+	if (pthread_create(&philo->thread, NULL, monitor, philo))
+	{
+		ft_putstr_fd("Philo: pthread_create() failed\n", 2);
+		exit(1);
+	}
 	while (1)
 	{
 		eat(philo);
+		sleeeep(philo);
+		print_state(philo->data->write, philo->id,
+			THINKING, get_time() - philo->data->start_time);
 		if (philo->meals == philo->data->max_meals)
 			break ;
-		sleeeep(philo);
-		print_state(philo, philo->id, THINKING);
 	}
+	pthread_join(philo->thread, NULL);
 	exit(0);
 }
 
@@ -73,18 +78,20 @@ int	spawn_children(t_data *data)
 	int		i;
 	int		pid;
 
-	i = 0;
-	while (i < data->philos_nbr)
+	i = -1;
+	while (++i < data->philos_nbr)
 	{
-		data->philos[i].death_date = data->start_time + data->t_die;
 		pid = fork();
 		if (pid < 0)
-			return (ft_putstr_fd("Philo: fork() failed\n", 2), -1);
-		if (pid > 0)
-			data->philos[i].process_id = pid;
-		else if (!pid)
+			return (ft_putstr_fd("Philo: fork() failed\n", 2), 0);
+		if (!pid)
+		{
+			if ((i + 1) % 2 == 0)
+				ft_usleep(data->t_eat);
 			routine(&data->philos[i]);
-		i++;
+		}
+		else
+			data->philos[i].process_id = pid;
 	}
 	return (pid);
 }
@@ -93,7 +100,6 @@ int	philosophers(t_data *data)
 {
 	int			pid;
 
-	data->start_time = get_time();
 	pid = spawn_children(data);
 	if (pid == -1)
 		return (1);
