@@ -6,7 +6,7 @@
 /*   By: nazouz <nazouz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 09:51:08 by nazouz            #+#    #+#             */
-/*   Updated: 2024/03/25 02:23:11 by nazouz           ###   ########.fr       */
+/*   Updated: 2024/03/25 05:28:17 by nazouz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,8 @@ int	philosophers(t_data *data)
 
 	pid = spawn_children(data);
 	if (pid == -1)
-		return (1);
+		return (0);
 	if (pid > 0)
 		wait_for_all(data);
-	return (0);
+	return (1);
 }

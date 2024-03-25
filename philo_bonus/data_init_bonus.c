@@ -6,7 +6,7 @@
 /*   By: nazouz <nazouz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 09:00:17 by nazouz            #+#    #+#             */
-/*   Updated: 2024/03/25 01:59:03 by nazouz           ###   ########.fr       */
+/*   Updated: 2024/03/25 05:23:49 by nazouz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 int	open_semaphores(t_data *data)
 {
-	sem_unlink("forks");
-	sem_unlink("write");
-	sem_unlink("lock");
-	data->forks = sem_open("forks", O_CREAT, 0644, data->philos_nbr);
-	data->write = sem_open("write", O_CREAT, 0644, 1);
-	data->lock = sem_open("lock", O_CREAT, 0644, 1);
+	sem_unlink("/forks");
+	sem_unlink("/write");
+	sem_unlink("/lock");
+	data->forks = sem_open("/forks", O_CREAT, 0644, data->philos_nbr);
+	data->write = sem_open("/write", O_CREAT, 0644, 1);
+	data->lock = sem_open("/lock", O_CREAT, 0644, 1);
 	if (data->forks == SEM_FAILED
 		|| data->write == SEM_FAILED
 		|| data->lock == SEM_FAILED)
