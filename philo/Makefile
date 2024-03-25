@@ -6,7 +6,7 @@
 #    By: nazouz <nazouz@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/02 10:43:33 by nazouz            #+#    #+#              #
-#    Updated: 2024/03/24 20:37:39 by nazouz           ###   ########.fr        #
+#    Updated: 2024/03/25 05:16:43 by nazouz           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ SRCS				=	\
 					./main.c \
 					./parse.c \
 					./data_init.c \
-					./utils/ft_atoll.c \
+					./utils/ft_atoi.c \
 					./utils/ft_putstr_fd.c \
 					./philosophers.c \
 					./philosophers_actions.c \

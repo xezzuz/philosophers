@@ -6,7 +6,7 @@
 /*   By: nazouz <nazouz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 10:29:11 by nazouz            #+#    #+#             */
-/*   Updated: 2024/03/21 20:10:55 by nazouz           ###   ########.fr       */
+/*   Updated: 2024/03/25 05:09:14 by nazouz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void		print_state(sem_t *write, int philo_id,
 size_t		get_time(void);
 int			ft_usleep(size_t milliseconds);
 void		ft_putstr_fd(char *s, int fd);
-long long	ft_atoll(const char *str);
+int			ft_atoi(const char *str);
 int			ft_strcmp(const char *s1, const char *s2);
 char		*ft_strdup(const char *s1);
 int			a_philo_died(t_data *data);

@@ -6,7 +6,7 @@
 /*   By: nazouz <nazouz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 09:51:08 by nazouz            #+#    #+#             */
-/*   Updated: 2024/03/24 20:17:26 by nazouz           ###   ########.fr       */
+/*   Updated: 2024/03/25 02:23:11 by nazouz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	*monitor(void *arg)
 	t_philo		*philo;
 
 	philo = (t_philo *)arg;
-	ft_usleep(philo->data->t_die * 0.5);
 	while (1)
 	{
 		sem_wait(philo->data->lock);

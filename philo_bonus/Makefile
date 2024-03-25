@@ -6,7 +6,7 @@
 #    By: nazouz <nazouz@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/02 10:43:33 by nazouz            #+#    #+#              #
-#    Updated: 2024/03/24 20:37:44 by nazouz           ###   ########.fr        #
+#    Updated: 2024/03/25 05:11:38 by nazouz           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ SRCS				=	\
 					./main_bonus.c \
 					./parse_bonus.c \
 					./data_init_bonus.c \
-					./utils/ft_atoll_bonus.c \
+					./utils/ft_atoi_bonus.c \
 					./utils/ft_putstr_fd_bonus.c \
 					./utils/ft_strcmp_bonus.c \
 					./utils/ft_strdup_bonus.c \

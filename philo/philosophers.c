@@ -6,7 +6,7 @@
 /*   By: nazouz <nazouz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 09:51:08 by nazouz            #+#    #+#             */
-/*   Updated: 2024/03/15 21:19:15 by nazouz           ###   ########.fr       */
+/*   Updated: 2024/03/25 02:51:24 by nazouz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	*monitor(void *arg)
 		pthread_mutex_unlock(&data->lock);
 		if (break_condition(data, i, get_time()))
 			break ;
-		if (data->philos_nbr == ++i)
+		if (data->philos_nbr == i + 1)
 			i = 0;
 	}
 	return (NULL);
