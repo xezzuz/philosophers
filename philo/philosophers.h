@@ -6,7 +6,7 @@
 /*   By: nazouz <nazouz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 10:29:11 by nazouz            #+#    #+#             */
-/*   Updated: 2024/03/25 05:17:27 by nazouz           ###   ########.fr       */
+/*   Updated: 2024/03/29 00:46:51 by nazouz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <unistd.h>
 # include <pthread.h>
 # include <sys/time.h>
+# include <limits.h>
 
 # define ENOMEM 12
 # define ENOMTX 21

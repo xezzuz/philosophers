@@ -6,7 +6,7 @@
 /*   By: nazouz <nazouz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 08:59:13 by nazouz            #+#    #+#             */
-/*   Updated: 2024/03/25 05:27:56 by nazouz           ###   ########.fr       */
+/*   Updated: 2024/03/29 00:16:51 by nazouz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	ft_clean(t_data *data)
 {
-	printf("======== CLEANING ========\n");
 	sem_close(data->forks);
 	sem_close(data->write);
 	sem_close(data->lock);

@@ -6,7 +6,7 @@
 /*   By: nazouz <nazouz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 09:51:08 by nazouz            #+#    #+#             */
-/*   Updated: 2024/03/25 05:28:17 by nazouz           ###   ########.fr       */
+/*   Updated: 2024/03/29 00:35:28 by nazouz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	spawn_children(t_data *data)
 	{
 		pid = fork();
 		if (pid < 0)
-			return (ft_putstr_fd("Philo: fork() failed\n", 2), 0);
+			return (ft_putstr_fd("Philo: fork() failed\n", 2), -1);
 		if (!pid)
 		{
 			if ((i + 1) % 2 == 0)
@@ -98,10 +98,16 @@ int	spawn_children(t_data *data)
 int	philosophers(t_data *data)
 {
 	int			pid;
+	int			i;
 
+	i = 0;
 	pid = spawn_children(data);
 	if (pid == -1)
+	{
+		while (i < data->philos_nbr)
+			kill(data->philos[i++].process_id, SIGTERM);
 		return (0);
+	}
 	if (pid > 0)
 		wait_for_all(data);
 	return (1);

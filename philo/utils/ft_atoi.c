@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoll.c                                         :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nazouz <nazouz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 11:02:15 by nazouz            #+#    #+#             */
-/*   Updated: 2024/03/25 05:16:51 by nazouz           ###   ########.fr       */
+/*   Updated: 2024/03/29 00:48:28 by nazouz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,22 @@ int	ft_atoi(const char *str)
 {
 	int				sign;
 	long			result;
-	long			resulttemp;
 
 	sign = 1;
 	result = 0;
-	resulttemp = 0;
 	if (*str == '-' || *str == '+')
 	{
 		if (*str == '-')
 			sign = -1;
 		str++;
 	}
+	if (!(*str) || sign == -1)
+		return (-1);
 	while (*str >= 48 && *str <= 57)
 	{
-		result = resulttemp * 10 + (*str++ - 48);
-		if (result < resulttemp)
+		result = result * 10 + (*str++ - 48);
+		if (result > INT_MAX)
 			return (-1);
-		resulttemp = result;
 	}
 	if (*str)
 		return (-1);
